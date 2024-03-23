@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="rs.readahead.washington.mobile">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace"/>
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <uses-permission
+        android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_ALL_DOWNLOADS" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_CALL_LOG" /> -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".MyApplication"
+        android:exported="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/tella_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/configure_localhost_media_file_http_server"
+        android:roundIcon="@mipmap/tella_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup"
+        >
+
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated"
+            android:value="true" />
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="google_analytics_ssaid_collection_enabled"
+            android:value="false" />
+
+        <provider
+            android:name=".data.provider.EncryptedFileProvider"
+            android:authorities="${applicationId}.EncryptedFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/encrypted_file_paths" />
+        </provider>
+
+        <!-- <receiver
+            android:name=".util.OpenPassword"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver> -->
+        <activity
+            android:name=".views.activity.SplashActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:exported="true"
+            android:icon="@mipmap/tella_icon_round"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".views.activity.AliasiCamera"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/icamera_round"
+            android:label="@string/settings.camo_icamera"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasSelfieCam"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/selfiecamera_round"
+            android:label="@string/settings.camo_selfie_cam"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasSnapCamera"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/snapcamera_round"
+            android:label="@string/settings.camo_snap_camera"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias> <!-- activity aliases -->
+        <activity-alias
+            android:name=".views.activity.AliasCalculate"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/calculate_round"
+            android:label="@string/settings.camo_calculate"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasCalculatorPlus"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/calculatorplus_round"
+            android:label="@string/settings.camo_calculator_plus"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasiCalculator"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/icalculator_round"
+            android:label="@string/settings.camo_icalculator"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasWeather"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/weather_round"
+            android:label="@string/settings.camo_weather"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasEasyWeather"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/easyweather_round"
+            android:label="@string/settings.camo_easyweather"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasSunnyDay"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/sunnyday_round"
+            android:label="@string/settings.camo_sunnyday"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasGameStation"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/gamestation_round"
+            android:label="@string/settings.camo_gamestation"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasPlayNow"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/playnow_round"
+            android:label="@string/settings.camo_playnow"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasJewelDash"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/jeweldash_round"
+            android:label="@string/settings.camo_jeweldash"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasClock"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/clock_round"
+            android:label="@string/settings.camo_clock"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasTime"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/time_round"
+            android:label="@string/settings.camo_time"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasStopWatch"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/stopwatch_round"
+            android:label="@string/settings.camo_stopwatch"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".views.activity.AliasCalculator"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/calculator_round"
+            android:label="@string/settings.camo_calculator2"
+            android:targetActivity=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <!-- activity aliases end -->
+
+        <activity
+            android:name=".views.activity.MainActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.SettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:label="@string/settings_app.bar"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="open.settings.activity"
+                    android:scheme="tella_scheme" />
+            </intent-filter>
+            <nav-graph android:value="@navigation/settings_navigation" />
+        </activity>
+
+        <activity
+            android:name=".views.activity.PatternUpgradeActivity"
+            android:exported="true"
+            android:label="@string/title_activity_security"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".views.activity.CollectMainActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/collect_app.bar"
+            android:parentActivityName=".views.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rs.readahead.washington.mobile.views.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".views.activity.CollectHelpActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/collect.help_app.bar"
+            android:parentActivityName=".views.activity.ServersSettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rs.readahead.washington.mobile.views.activity.ServersSettingsActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="open.collect.help.activity"
+                    android:scheme="tella_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.activity.ServersSettingsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:exported="true"
+            android:label="@string/settings.servers.title_server.settings"
+            android:parentActivityName=".views.activity.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rs.readahead.washington.mobile.views.activity.SettingsActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="open.collect.manage.servers.activity"
+                    android:scheme="tella_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.activity.CollectFormEntryActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".views.activity.QuestionAttachmentActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/collect.form_select.attachment_app.bar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.MetadataViewerActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/verification.info_app.bar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.MetadataHelpActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/verification.help.info_app.bar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.PhotoViewerActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/PhotoViewerTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.AudioPlayActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/play.audio_app.bar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.VideoViewerActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:launchMode="singleTop"
+            android:theme="@style/PlayerTheme" />
+        <activity
+            android:name=".views.activity.CameraActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/CameraTheme"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".views.activity.ExitActivity"
+            android:exported="true"
+            android:autoRemoveFromRecents="true"
+            android:theme="@android:style/Theme.NoDisplay"
+             />
+        <activity
+            android:name=".views.activity.LocationMapActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/title_activity_location_map"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.SignatureActivity"
+            android:exported="true"
+            android:label="@string/signature"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".views.activity.FormSubmitActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.fragment.uwazi.attachments.AttachmentsActivitySelector"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.onboarding.OnBoardingActivity"
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activity.clean_insights.CleanInsightsActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".views.dialog.uwazi.UwaziConnectFlowActivity"
+            android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
+     <!--  <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />-->
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
